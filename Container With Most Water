@@ -11,13 +11,16 @@ class Solution:
         else:
             maxArea = 1*height[1]
 
-        for i, h1 in enumerate (height):
-            for j, h2 in enumerate (height):
-                if h2>h1:
-                    curr = (j-i)*h1
-                else:
-                    curr = (j-i)*h2
-                
-                if curr > maxArea:
-                    maxArea=curr
+        while left<right:
+            if height[left] < height[right]:
+                curr = height[left]* (right-left)
+                left += 1
+            
+            else:
+                curr = height[right]* (right-left)
+                right -= 1
+            
+            if curr > maxArea:
+                maxArea=curr
+        
         return maxArea
