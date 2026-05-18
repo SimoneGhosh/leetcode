@@ -5,18 +5,14 @@ class Solution:
 
         while l < r:
 
-            print (nums[l], nums[r])
             if nums[l] < nums[r]:
                 return nums[l]
             
             m = (l+r) // 2
-            print (m)
         
             if nums[m] > nums[r]:
-                print ("moved left")
                 l = m + 1
             else:
-                print ("moev r")
                 r = m 
         
         return nums[l]
