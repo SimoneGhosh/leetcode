@@ -5,21 +5,23 @@ class ListNode:
         self.next = next
 class Solution:
     def reorderList(self, head: Optional[ListNode]) -> None:
-        nodes = []
-
         curr = head
+        seen = []
 
-        while curr != None:
-            nodes.append(curr)
+        while (curr):
+            seen.append(curr)
             curr = curr.next
         
-        i, j = 0, len(nodes)-1
+        l, r = 0, len(seen)-1
 
-        while i < j:
-            nodes[i].next = nodes[j]
-            i += 1
-            if i>= j:
+        while l < r:
+            seen[l].next = seen[r]
+            l += 1
+            if (l >= r):
                 break
-            nodes[j].next = nodes[i]
-            j -= 1
-        nodes[i].next = None        
+            seen[r].next = seen[l]
+            r -= 1
+        
+        seen[l].next = None
+
+        return (seen[0])
