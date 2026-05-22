@@ -5,23 +5,40 @@ class ListNode:
         self.next = next
 class Solution:
     def reorderList(self, head: Optional[ListNode]) -> None:
-        curr = head
-        seen = []
+        
+        # find half way
+
+        slow = head
+        fast = head.next
+
+        while (fast and fast.next):
+            slow = slow.next
+            fast = fast.next.next
+
+        # reverse 2nd hald
+
+        curr = slow.next
+        prev = None
+        slow.next = None
 
         while (curr):
-            seen.append(curr)
-            curr = curr.next
-        
-        l, r = 0, len(seen)-1
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
 
-        while l < r:
-            seen[l].next = seen[r]
-            l += 1
-            if (l >= r):
-                break
-            seen[r].next = seen[l]
-            r -= 1
-        
-        seen[l].next = None
 
-        return (seen[0])
+        # combine both
+
+        first = head
+        second = prev
+
+        while (second):
+            temp1 = first.next
+            temp2 = second.next
+            first.next = second
+            second.next = temp1
+            first = temp1
+            second = temp2
+        
+        return (head)
