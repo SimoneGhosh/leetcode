@@ -6,42 +6,36 @@ class ListNode:
 
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        print (list1)
-        print(list2)
+        new = None
 
-        start = None
-        curr = None
-        temp = None
-        
-        if list2 == None:
-            return list1
-        elif list1 == None:
+        if (list1 == None):
             return list2
+        elif (list2 == None):
+            return list1
 
-        if list1.val < list2.val:
-            start = list1
-            curr = start
+        if list1 and list2 and list1.val < list2.val:
+            new = list1
             list1 = list1.next
-        else:
-            start = list2
-            curr = start
+        elif list1 and list2 and list1.val >= list2.val:
+            new = list2
             list2 = list2.next
-        
-        while (curr != None):
-            if list1 == None:
-                curr.next = list2
-                break
-            elif list2 == None:
-                curr.next = list1
-                break
 
-            if list1.val < list2.val:
-                curr.next = list1
-                curr = list1
+        head = new
+
+
+        while (list1 and list2):
+            if list1.val <= list2.val:
+                new.next = list1
                 list1 = list1.next
             else:
-                curr.next = list2
-                curr = list2
+                new.next = list2
                 list2 = list2.next
-
-        return start
+            new = new.next
+            print (head)
+        
+        if (list1):
+            new.next = list1
+        elif (list2):
+            new.next = list2
+        
+        return head
