@@ -7,7 +7,6 @@ class Solution:
     def reorderList(self, head: Optional[ListNode]) -> None:
         
         # find half way
-
         slow = head
         fast = head.next
 
@@ -16,29 +15,30 @@ class Solution:
             fast = fast.next.next
 
         # reverse 2nd hald
-
-        curr = slow.next
         prev = None
-        slow.next = None
-
+        curr = slow.next
         while (curr):
             temp = curr.next
             curr.next = prev
             prev = curr
             curr = temp
 
+        reverse = prev
+        slow.next = None
 
         # combine both
+        new = head
 
-        first = head
-        second = prev
-
-        while (second):
-            temp1 = first.next
-            temp2 = second.next
-            first.next = second
-            second.next = temp1
-            first = temp1
-            second = temp2
+        while (head and reverse):
+            temp = head.next
+            head.next = reverse
+            reverse = reverse.next
+            head = head.next
+            head.next = temp
+            head = head.next
         
-        return (head)
+        if (reverse):
+            head.next = reverse
+
+        return (new)
+        
